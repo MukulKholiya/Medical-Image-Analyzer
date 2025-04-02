@@ -64,6 +64,25 @@
 			<artifactId>opencv-platform</artifactId>
 			<version>4.10.0-1.5.11</version>
 		</dependency>
+		<dependency>
+			<groupId>ai.djl</groupId>
+			<artifactId>api</artifactId>
+			<version>0.22.0</version>
+		</dependency>
+
+		<!-- DJL ONNX Runtime for Inference -->
+		<dependency>
+			<groupId>ai.djl.onnxruntime</groupId>
+			<artifactId>onnxruntime-engine</artifactId>
+			<version>0.22.0</version>
+		</dependency>
+
+		<!-- DJL Image Processing -->
+		<dependency>
+			<groupId>ai.djl</groupId>
+			<artifactId>basicdataset</artifactId>
+			<version>0.22.0</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

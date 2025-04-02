@@ -15,7 +15,9 @@ import org.springframework.stereotype.Component;
 import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 @Component
@@ -25,11 +27,13 @@ public class ImageProcessServiceImpl implements ImageProcessingService {
     public Mat loadImage(String filePath) {
         try {
             if (filePath.startsWith("http")) {
-                String tempFilePath = "temp_image_" + System.currentTimeMillis() + ".jpg";
+                Path tempFilePath = Paths.get("temp_image.jpg");
                 try (InputStream in = new URL(filePath).openStream()) {
-                    Files.copy(in, Paths.get(tempFilePath));
+                    Files.copy(in, tempFilePath, StandardCopyOption.REPLACE_EXISTING);
                 }
-                return imread(tempFilePath);
+                Mat image = imread(tempFilePath.toString());
+                Files.deleteIfExists(tempFilePath); // Delete after loading
+                return image;
             }
             return imread(filePath);
         } catch (Exception e) {
@@ -37,6 +41,7 @@ public class ImageProcessServiceImpl implements ImageProcessingService {
             return new Mat();
         }
     }
+
     @Override
     public Mat convertToGray(Mat image) {
         Mat grayImg = new Mat();
